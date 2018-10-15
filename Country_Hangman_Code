@@ -1,0 +1,72 @@
+#Guess the Country Hangman Style
+
+def play_game():
+
+    import time
+    import random
+
+    name = input("What is your name? ")
+    print("")
+    time.sleep(1.5)
+    print("Hello, " + name, "time to play guess the Country!")
+    print("")
+    time.sleep(1.5)
+    print("First some rules:")
+    time.sleep(1.5)
+    print("Each underscore indicates a letter or a space")
+    time.sleep(1.5)
+    print("Both upper and lower case letters are accepted")
+    time.sleep(1.5)
+    print("You only lose a turn if you get a guess wrong")
+    print("")
+
+    time.sleep(1.5)
+
+    print("You ready to play a game?")
+    print("")
+    time.sleep(1.5)
+
+    text_file_out_R = open("countires.txt", "r")
+    text_file_out = text_file_out_R.readlines()
+    Countries = ""
+
+    for line in text_file_out:
+        Countries += line
+
+    counties = Countries.split()
+    word = random.choice(counties)
+    word = word.lower()
+
+    guesses = ''
+    turns = 1
+
+    while turns > 0:
+        failed = 0
+        for item in word:
+            if item in guesses:
+                print(item, end=' ')
+            else:
+                print("_", end=' ')
+                failed += 1
+        if failed == 0:
+            print('')
+            time.sleep(1.5)
+            print ("You won")
+            break
+        print("")
+        guess = input("guess a character: ")
+        guess = guess.lower()
+        guesses += guess
+        if guess not in word:
+            turns -= 1
+            time.sleep(1)
+            print("Wrong")
+            time.sleep(1)
+            print("You have", + turns, 'more guesses')
+            if turns == 0:
+                print('')
+                time.sleep(1.5)
+                print("You Loose the word was: " + word)
+    return
+
+play_game()
